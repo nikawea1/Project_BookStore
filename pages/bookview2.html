@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1984 - Книжный мир</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../media/icons/webICO1.png" type="image/png">
+</head>
+<body>
+
+    
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="../media/icons/book_icon_3.png" alt="Иконка книги" class="logo-icon">
+                <div class="logo-text">
+                    <h1>Книжный Мир</h1>
+                    <p>Онлайн-магазин книг</p>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#home">Главная</a></li>
+                    <li><a href="../index.html#catalog">Каталог</a></li>
+                    <li><a href="../index.html#reviews">Отзывы</a></li>
+                    <li><a href="../index.html#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    
+    <section class="book-detail">
+        <div class="container">
+            <div class="book-detail-container">
+                
+                <div class="book-gallery">
+                    <div class="gallery-main">
+                        
+                        <div class="gallery-slides">
+                            <input type="radio" name="gallery-radio" id="slide1" checked>
+                            <input type="radio" name="gallery-radio" id="slide2">
+                            <input type="radio" name="gallery-radio" id="slide3">
+                            <input type="radio" name="gallery-radio" id="slide4">
+                            
+                            <div class="gallery-slide first">
+                                
+                                <label for="modal-toggle" class="image-zoom-trigger" data-slide="1">
+                                    <img src="../media/bookimages/19842.jpg" alt="Обложка книги 1984" class="book-large-image">
+                                </label>
+                            </div>
+                            
+                            <div class="gallery-slide">
+                                <label for="modal-toggle" class="image-zoom-trigger" data-slide="2">
+                                    <img src="../media/bookimages/198433.jpg" alt="Обратная сторона обложки 1984" class="book-large-image">
+                                </label>
+                            </div>
+                            
+                            <div class="gallery-slide">
+                                <label for="modal-toggle" class="image-zoom-trigger" data-slide="3">
+                                    <img src="../media/bookimages/198422.jpg" alt="Внутренние страницы книги 1984" class="book-large-image">
+                                </label>
+                            </div>
+                            
+                            <div class="gallery-slide">
+                                <label for="modal-toggle" class="image-zoom-trigger" data-slide="4">
+                                    <img src="../media/bookimages/198444.jpg" alt="Книга 1984 в руках" class="book-large-image">
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                        <div class="gallery-nav">
+                            <label for="slide1" class="nav-dot"></label>
+                            <label for="slide2" class="nav-dot"></label>
+                            <label for="slide3" class="nav-dot"></label>
+                            <label for="slide4" class="nav-dot"></label>
+                        </div>
+
+                        
+                        <div class="gallery-captions">
+                            <div class="caption">Обложка книги</div>
+                            <div class="caption">Обратная сторона</div>
+                            <div class="caption">Внутренние страницы</div>
+                            <div class="caption">Книга в руках</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-detail-info">
+                    <h1>1984</h1>
+                    <p class="book-detail-author">Джордж Оруэлл</p>
+                    <p class="book-detail-price">28 руб.</p>
+                    
+                    <div class="book-detail-description">
+                        <p>"1984" - культовый антиутопический роман Джорджа Оруэлла, изображающий тоталитарное общество под постоянным контролем "Большого Брата". Действие происходит в вымышленном государстве Океания, где правящая партия осуществляет тотальный контроль над каждым аспектом жизни граждан.</p>
+                        <p>Главный герой, Уинстон Смит, работает в Министерстве правды, где занимается переписыванием истории в угоду партии. Постепенно он начинает сомневаться в системе и искать пути сопротивления, что приводит его к опасным последствиям в мире, где даже мысли преследуются "полицией мыслей".</p>
+                    </div>
+                    
+                    <div class="book-detail-meta">
+                        <h3>Информация о книге</h3>
+                        <div class="meta-grid">
+                            <div class="meta-item">
+                                <strong>Год издания:</strong> 1949
+                            </div>
+                            <div class="meta-item">
+                                <strong>Страниц:</strong> 320
+                            </div>
+                            <div class="meta-item">
+                                <strong>Переплет:</strong> Твердый
+                            </div>
+                            <div class="meta-item">
+                                <strong>Язык:</strong> Русский
+                            </div>
+                            <div class="meta-item">
+                                <strong>Издательство:</strong> Эксмо
+                            </div>
+                            <div class="meta-item">
+                                <strong>ISBN:</strong> 978-5-699-97570-5
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="actions">
+                        <a href="../pages/korzina.html" class="btn btn-large">В корзину</a>
+                        <a href="catalog.html" class="btn btn-large btn-outline">Вернуться в каталог</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <input type="checkbox" id="modal-toggle" class="modal-toggle">
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <label for="modal-toggle" class="modal-close">&times;</label>
+            
+            <div class="modal-slides">
+                <input type="radio" name="modal-radio" id="modal-slide1" checked>
+                <input type="radio" name="modal-radio" id="modal-slide2">
+                <input type="radio" name="modal-radio" id="modal-slide3">
+                <input type="radio" name="modal-radio" id="modal-slide4">
+                
+                <div class="modal-slide first">
+                    <img src="../media/bookimages/19842.jpg" alt="Обложка книги 1984 - увеличенное изображение">
+                </div>
+                
+                <div class="modal-slide">
+                    <img src="../media/bookimages/198433.jpg" alt="Обратная сторона обложки 1984 - увеличенное изображение">
+                </div>
+                
+                <div class="modal-slide">
+                    <img src="../media/bookimages/198422.jpg" alt="Внутренние страницы книги 1984 - увеличенное изображение">
+                </div>
+                
+                <div class="modal-slide">
+                    <img src="../media/bookimages/198444.jpg" alt="Книга 1984 в руках - увеличенное изображение">
+                </div>
+            </div>
+
+            
+            <div class="modal-nav">
+                <label for="modal-slide1" class="modal-nav-dot"></label>
+                <label for="modal-slide2" class="modal-nav-dot"></label>
+                <label for="modal-slide3" class="modal-nav-dot"></label>
+                <label for="modal-slide4" class="modal-nav-dot"></label>
+            </div>
+
+            
+            <div class="modal-captions">
+                <div class="modal-caption">Обложка книги</div>
+                <div class="modal-caption">Обратная сторона</div>
+                <div class="modal-caption">Внутренние страницы</div>
+                <div class="modal-caption">Книга в руках</div>
+            </div>
+
+            
+            <div class="modal-controls">
+                <label for="modal-slide1" class="modal-prev">‹</label>
+                <label for="modal-slide2" class="modal-next">›</label>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Книжный мир. Все права защищены.</p>
+            <a href="../index.html#home" class="back-to-top">🡑 Вернуться на главную 🡑</a>
+        </div>
+    </footer>
+
+</body>
+</html>

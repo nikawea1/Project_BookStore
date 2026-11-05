@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина - Книжный мир</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../media/icons/webICO1.png" type="image/png">
+    <style>
+        .cart-page {
+            padding: 120px 0 50px;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cart-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .cart-header h1 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .cart-header p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .cart-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .cart-items {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .cart-section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f4f8;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            padding: 25px 0;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+
+        .cart-item:hover {
+            background-color: #fafbfc;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .cart-item-image:hover {
+            transform: scale(1.05);
+        }
+
+        .cart-item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cart-item-info {
+            margin-bottom: 15px;
+        }
+
+        .cart-item-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .cart-item-title:hover {
+            color: #4fa8e7;
+        }
+
+        .cart-item-author {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-meta {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4fa8e7;
+            margin-bottom: 15px;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background: #4fa8e7;
+            color: white;
+            border-color: #4fa8e7;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-weight: bold;
+            background: white;
+        }
+
+        .remove-btn {
+            color: #e74c3c;
+            background: none;
+            border: 1px solid #e74c3c;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .cart-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .summary-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f4f8;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f4f8;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: #666;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .summary-total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            border-top: 2px solid #f0f4f8;
+            padding-top: 20px;
+            margin-top: 15px;
+        }
+
+        .discount-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #4fa8e7;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 12px;
+            border: 2px solid #4fa8e7;
+            border-radius: 8px;
+        }
+
+        .continue-shopping:hover {
+            background: #4fa8e7;
+            color: white;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-cart-icon {
+            font-size: 80px;
+            margin-bottom: 25px;
+            color: #ddd;
+        }
+
+        .empty-cart h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        .empty-cart p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .cart-promo {
+            background: #fff9e6;
+            border: 1px solid #ffd166;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .promo-title {
+            font-weight: bold;
+            color: #e6a700;
+            margin-bottom: 8px;
+        }
+
+        .promo-text {
+            font-size: 14px;
+            color: #8a6d00;
+        }
+
+        .delivery-info {
+            background: #e8f4fd;
+            border: 1px solid #4fa8e7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .delivery-title {
+            font-weight: bold;
+            color: #4fa8e7;
+            margin-bottom: 8px;
+        }
+
+        .delivery-text {
+            font-size: 14px;
+            color: #2c5aa0;
+        }
+
+        @media (max-width: 768px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .cart-item-image {
+                align-self: center;
+                margin-bottom: 15px;
+            }
+
+            .cart-item-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .quantity-controls {
+                justify-content: center;
+            }
+        }
+
+        .cart-item-stock {
+            color: #28a745;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-save {
+            color: #e74c3c;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="../media/icons/book_icon_3.png" alt="Иконка книги" class="logo-icon">
+                <div class="logo-text">
+                    <h1>Книжный Мир</h1>
+                    <p>Онлайн-магазин книг</p>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#home">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="../index.html#reviews">Отзывы</a></li>
+                    <li><a href="../index.html#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    
+    <main class="cart-page">
+        <div class="container cart-container">
+            <div class="cart-header">
+                <h1>🛒 Ваша корзина</h1>
+                <p>Товары, которые вы выбрали для покупки</p>
+            </div>
+
+            <div class="cart-content">
+                
+                <div class="cart-items">
+                    <h3 class="cart-section-title">Товары в корзине (4)</h3>
+                    
+                    
+                    <div class="cart-item">
+                        <img src="../media/bookimages/princ4.jpg" alt="Маленький принц" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-info">
+                                <a href="bookview4.html" class="cart-item-title">Маленький принц</a>
+                                <p class="cart-item-author">Антуан де Сент-Экзюпери</p>
+                                <p class="cart-item-meta">Классика • Твердый переплет • 96 стр.</p>
+                                <p class="cart-item-stock">✓ В наличии</p>
+                                <p class="cart-item-price">15 руб.</p>
+                            </div>
+                            <div class="cart-item-actions">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                                <button class="remove-btn">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="cart-item">
+                        <img src="../media/bookimages/19842.jpg" alt="1984" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-info">
+                                <a href="bookview2.html" class="cart-item-title">1984</a>
+                                <p class="cart-item-author">Джордж Оруэлл</p>
+                                <p class="cart-item-meta">Антиутопия • Твердый переплет • 320 стр.</p>
+                                <p class="cart-item-stock">✓ В наличии</p>
+                                <p class="cart-item-price">28 руб.</p>
+                            </div>
+                            <div class="cart-item-actions">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn">-</button>
+                                </div>
+                                <button class="remove-btn">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="cart-item">
+                        <img src="../media/bookimages/dorian1.jpg" alt="Портрет Дориана Грея" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-info">
+                                <a href="bookview6.html" class="cart-item-title">Портрет Дориана Грея</a>
+                                <p class="cart-item-author">Оскар Уайльд</p>
+                                <p class="cart-item-meta">Классика • Твердый переплет • 320 стр.</p>
+                                <p class="cart-item-stock">✓ В наличии</p>
+                                <p class="cart-item-price">24 руб. <span class="discount-badge">-10%</span></p>
+                            </div>
+                            <div class="cart-item-actions">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                                <button class="remove-btn">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="cart-item">
+                        <img src="../media/bookimages/gordost5.jpg" alt="Гордость и предубеждение" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-info">
+                                <a href="bookview5.html" class="cart-item-title">Гордость и предубеждение</a>
+                                <p class="cart-item-author">Джейн Остин</p>
+                                <p class="cart-item-meta">Роман • Твердый переплет • 432 стр.</p>
+                                <p class="cart-item-stock">✓ В наличии</p>
+                                <p class="cart-item-price">29 руб.</p>
+                            </div>
+                            <div class="cart-item-actions">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn">-</button>
+                                    <input type="text" class="quantity-input" value="2" readonly>
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                                <button class="remove-btn">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="cart-summary">
+                    <h3 class="summary-title">Итоги заказа</h3>
+                    
+                    <div class="summary-row">
+                        <span class="summary-label">Товары (5 шт.)</span>
+                        <span class="summary-value">96 руб.</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span class="summary-label">Скидка</span>
+                        <span class="summary-value" style="color: #28a745;">-2.40 руб.</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span class="summary-label">Доставка</span>
+                        <span class="summary-value">3 руб.</span>
+                    </div>
+                    
+                    <div class="summary-row summary-total">
+                        <span>Итого к оплате:</span>
+                        <span>96.60 руб.</span>
+                    </div>
+
+                    <div class="cart-promo">
+                        <div class="promo-title">🎁 Специальное предложение</div>
+                        <div class="promo-text">При заказе от 50 руб. - бесплатная доставка!</div>
+                    </div>
+
+                    <div class="delivery-info">
+                        <div class="delivery-title">🚚 Доставка</div>
+                        <div class="delivery-text">Доставим за 1-3 дня • Бесплатный самовывоз из магазина</div>
+                    </div>
+
+                    <button class="checkout-btn">Оформить заказ</button>
+                    <a href="catalog.html" class="continue-shopping">← Продолжить покупки</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Книжный мир. Все права защищены.</p>
+            <a href="../index.html#home" class="back-to-top">🡑 Вернуться на главную 🡑</a>
+        </div>
+    </footer>
+</body>
+</html>

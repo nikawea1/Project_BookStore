@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог книг - Книжный мир</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../media/icons/webICO1.png" type="image/png">
+</head>
+<body>
+
+    
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="../media/icons/book_icon_3.png" alt="Иконка книги" class="logo-icon">
+                <div class="logo-text">
+                    <h1>Книжный Мир</h1>
+                    <p>Онлайн-магазин книг</p>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#home">Главная</a></li>
+                    <li><a href="catalog.html" class="active">Каталог</a></li>
+                    <li><a href="../index.html#reviews">Отзывы</a></li>
+                    <li><a href="../index.html#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    
+    <section class="catalog-controls">
+        <div class="container">
+            <div class="catalog-header">
+                <h1>Каталог книг</h1>
+                <p>Более 20 000 книг в нашем магазине</p>
+            </div>
+
+            
+            <div class="search-sort-container">
+                
+                <form method="GET" action="catalog.html#catalog-content" class="search-box">
+                    <input type="text" name="search" placeholder="Поиск по названию, автору или жанру..." value="">
+                    <button type="submit" class="search-btn">Найти</button>
+                </form>
+
+                
+<form method="GET" action="catalog.html#catalog-content" class="sort-box">
+    <label for="sort-select">Сортировка:</label>
+
+    <div class="custom-select">
+        <select id="sort-select" name="sort">
+            <option value="popular">По популярности</option>
+            <option value="price-asc">По цене (дешевые → дорогие)</option>
+            <option value="price-desc">По цене (дорогие → дешевые)</option>
+            <option value="title">По названию (А–Я)</option>
+            <option value="new">Сначала новинки</option>
+        </select>
+    </div>
+
+    <input type="hidden" name="search" value="">
+</form>
+
+            </div>
+
+            <div class="catalog-layout">
+                
+                <aside class="filters-sidebar">
+                    <div class="filters-header">
+                        <h3>Фильтры</h3>
+                        <div class="filter-actions">
+                            
+                            <form method="GET" action="catalog.html#catalog-content" class="filter-form">
+                                <input type="hidden" name="apply_filters" value="1">
+                                
+                                
+                                <div class="filter-group">
+                                    <h4>Жанры</h4>
+                                    <div class="filter-options">
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="genre" value="classic"> Классика
+                                        </label>
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="genre" value="fantasy"> Фэнтези
+                                        </label>
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="genre" value="detective"> Детективы
+                                        </label>
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="genre" value="romance"> Романы
+                                        </label>
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="genre" value="scifi"> Научная фантастика
+                                        </label>
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="genre" value="biography"> Биографии
+                                        </label>
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="genre" value="business"> Бизнес
+                                        </label>
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="genre" value="children"> Детские
+                                        </label>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="filter-group">
+                                    <h4>Цена, руб.</h4>
+                                    <div class="price-range">
+                                        <div class="price-inputs">
+                                            <input type="number" name="price_min" placeholder="0" min="0" max="1000">
+                                            <span>-</span>
+                                            <input type="number" name="price_max" placeholder="100" min="0" max="1000">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="filter-group">
+                                    <h4>Переплет</h4>
+                                    <div class="filter-options">
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="cover" value="hard"> Твердый
+                                        </label>
+                                        <label class="filter-checkbox">
+                                            <input type="checkbox" name="cover" value="soft"> Мягкий
+                                        </label>
+                                    </div>
+                                </div>
+                               
+                                
+                                <div class="filter-group">
+                                    <h4>Рейтинг</h4>
+
+                                    <div class="rating-filter">
+                                        <label class="rating-row">
+                                            <input type="radio" name="rating" value="5">
+                                            <span class="stars">★★★★★</span>
+                                            <span class="rating-text">5+</span>
+                                        </label>
+
+                                        <label class="rating-row">
+                                            <input type="radio" name="rating" value="4">
+                                            <span class="stars">★★★★☆</span>
+                                            <span class="rating-text">4+</span>
+                                        </label>
+
+                                        <label class="rating-row">
+                                            <input type="radio" name="rating" value="3">
+                                            <span class="stars">★★★☆☆</span>
+                                            <span class="rating-text">3+</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+<div class="filter-group">
+    <h4>Наличие</h4>
+    <div class="filter-availability">
+        <div class="availability-options">
+            <label class="availability-option">
+                <input type="radio" name="availability" value="in-stock">
+                <span>В наличии</span>
+            </label>
+            <label class="availability-option">
+                <input type="radio" name="availability" value="pre-order">
+                <span>Предзаказ</span>
+            </label>
+            <label class="availability-option">
+                <input type="radio" name="availability" value="not-available">
+                <span>Нет в наличии</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="filter-group">
+    <h4>Год издания</h4>
+    <div class="price-range">
+        <div class="price-inputs">
+            <input type="number" name="year_min" placeholder="2000" min="1900" max="2025">
+            <span>-</span>
+            <input type="number" name="year_max" placeholder="2025" min="1900" max="2025">
+        </div>
+    </div>
+</div>
+
+<div class="filter-group">
+    <h4>Язык</h4>
+    <div class="filter-options">
+        <label class="filter-checkbox">
+            <input type="checkbox" name="language" value="russian"> Русский
+        </label>
+        <label class="filter-checkbox">
+            <input type="checkbox" name="language" value="english"> Английский
+        </label>
+        <label class="filter-checkbox">
+            <input type="checkbox" name="language" value="french"> Французский
+        </label>
+    </div>
+</div>
+
+<div class="filter-group">
+    <h4>Формат</h4>
+    <div class="filter-options">
+        <label class="filter-checkbox">
+            <input type="checkbox" name="format" value="standard"> Стандартный
+        </label>
+        <label class="filter-checkbox">
+            <input type="checkbox" name="format" value="pocket"> Карманный
+        </label>
+        <label class="filter-checkbox">
+            <input type="checkbox" name="format" value="large"> Крупный
+        </label>
+    </div>
+</div>
+
+                                <div class="filter-buttons">
+                                    <button type="submit" class="btn apply-filters">Применить фильтры</button>
+                                    <a href="catalog.html#catalog-content" class="btn reset-filters">Сбросить все</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </aside>
+
+                
+                <main class="catalog-main" id="catalog-content">
+                    <div class="catalog-stats">
+                        <p>Найдено книг: <strong>20</strong></p>
+                        <div class="active-filters">
+                            <span class="filter-tag">
+                                Классика
+                                <a href="catalog.html#catalog-content" class="remove-filter">×</a>
+                            </span>
+                            <span class="filter-tag">
+                                Цена: 0-50 руб.
+                                <a href="catalog.html#catalog-content" class="remove-filter">×</a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="book-grid extended-grid">
+                        
+<a href="bookview1.html" class="book-card-link">
+    <div class="book-card">
+        <div class="book-badge">Бестселлер</div>
+        <div class="book-image">
+            <img src="../media/bookimages/master1.jpg" alt="Мастер и Маргарита - Михаил Булгаков">
+        </div>
+        <h3>Мастер и Маргарита</h3>
+        <p class="author">Михаил Булгаков</p>
+        <div class="book-footer">
+            <p class="price">16 руб.</p>
+            <span class="btn buy-btn">В корзину</span>
+        </div>
+    </div>
+</a>
+
+<a href="bookview2.html" class="book-card-link">
+    <div class="book-card">
+        <div class="book-badge">Новинка</div>
+        <div class="book-image">
+            <img src="../media/bookimages/19842.jpg" alt="1984 - Джордж Оруэлл">
+        </div>
+        <h3>1984</h3>
+        <p class="author">Джордж Оруэлл</p>
+        <div class="book-footer">
+            <p class="price">28 руб.</p>
+            <span class="btn buy-btn">В корзину</span>
+        </div>
+    </div>
+</a>
+
+<a href="bookview3.html" class="book-card-link">
+    <div class="book-card">
+        <div class="book-image">
+            <img src="../media/bookimages/nakazanie3.jpg" alt="Преступление и наказание - Фёдор Достоевский">
+        </div>
+        <h3>Преступление и наказание</h3>
+        <p class="author">Фёдор Достоевский</p>
+        <div class="book-footer">
+            <p class="price">17 руб.</p>
+            <span class="btn buy-btn">В корзину</span>
+        </div>
+    </div>
+</a>
+
+<a href="bookview4.html" class="book-card-link">
+    <div class="book-card">
+        <div class="book-badge">Выбор читателей</div>
+        <div class="book-image">
+            <img src="../media/bookimages/princ4.jpg" alt="Маленький принц - Антуан де Сент-Экзюпери">
+        </div>
+        <h3>Маленький принц</h3>
+        <p class="author">Антуан де Сент-Экзюпери</p>
+        <div class="book-footer">
+            <p class="price">15 руб.</p>
+            <span class="btn buy-btn">В корзину</span>
+        </div>
+    </div>
+</a>
+
+<a href="bookview5.html" class="book-card-link">
+    <div class="book-card">
+        <div class="book-image">
+            <img src="../media/bookimages/gordost5.jpg" alt="Гордость и предубеждение - Джейн Остин">
+        </div>
+        <h3>Гордость и предубеждение</h3>
+        <p class="author">Джейн Остин</p>
+        <div class="book-footer">
+            <p class="price">29 руб.</p>
+            <span class="btn buy-btn">В корзину</span>
+        </div>
+    </div>
+</a>
+
+<a href="bookview6.html" class="book-card-link">
+    <div class="book-card">
+        <div class="book-badge discount">-10%</div>
+        <div class="book-image">
+            <img src="../media/bookimages/dorian1.jpg" alt="Портрет Дориана Грея - Оскар Уайльд">
+        </div>
+        <h3>Портрет Дориана Грея</h3>
+        <p class="author">Оскар Уайльд</p>
+        <div class="book-footer">
+            <p class="price"><span class="old-price">20 руб.</span> 18 руб.</p>
+            <span class="btn buy-btn">В корзину</span>
+        </div>
+    </div>
+</a>
+
+                        
+                        <div class="book-card">
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/voina.jpg" alt="Война и мир - Лев Толстой">
+                            </a>
+                            <h3>Война и мир</h3>
+                            <p class="author">Лев Толстой</p>
+                            <div class="book-footer">
+                                <p class="price">25 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/anna.jpg" alt="Анна Каренина - Лев Толстой">
+                            </a>
+                            <h3>Анна Каренина</h3>
+                            <p class="author">Лев Толстой</p>
+                            <div class="book-footer">
+                                <p class="price">22 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-badge">Классика</div>
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/onegin.jpg" alt="Евгений Онегин - Александр Пушкин">
+                            </a>
+                            <h3>Евгений Онегин</h3>
+                            <p class="author">Александр Пушкин</p>
+                            <div class="book-footer">
+                                <p class="price">14 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/otsi.jpg" alt="Отцы и дети - Иван Тургенев">
+                            </a>
+                            <h3>Отцы и дети</h3>
+                            <p class="author">Иван Тургенев</p>
+                            <div class="book-footer">
+                                <p class="price">16 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-badge">Юмор</div>
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/mertvie.jpg" alt="Мертвые души - Николай Гоголь">
+                            </a>
+                            <h3>Мертвые души</h3>
+                            <p class="author">Николай Гоголь</p>
+                            <div class="book-footer">
+                                <p class="price">19 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/geroi.jpg" alt="Герой нашего времени - Михаил Лермонтов">
+                            </a>
+                            <h3>Герой нашего времени</h3>
+                            <p class="author">Михаил Лермонтов</p>
+                            <div class="book-footer">
+                                <p class="price">17 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        
+                        <div class="book-card">
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/idiot.jpg" alt="Идиот - Фёдор Достоевский">
+                            </a>
+                            <h3>Идиот</h3>
+                            <p class="author">Фёдор Достоевский</p>
+                            <div class="book-footer">
+                                <p class="price">21 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-badge">Бестселлер</div>
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/martin.jpg" alt="Мартин Иден - Лондон Джек">
+                            </a>
+                            <h3>Мартин Иден</h3>
+                            <p class="author">Лондон Джек</p>
+                            <div class="book-footer">
+                                <p class="price">26 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/romeo.jpg" alt="Ромео и Джульетта - Уильям Шекспир">
+                            </a>
+                            <h3>Ромео и Джульетта</h3>
+                            <p class="author">Уильям Шекспир</p>
+                            <div class="book-footer">
+                                <p class="price">18 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-badge">Эпический роман</div>
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/don.jpg" alt="Тихий Дон - Михаил Шолохов">
+                            </a>
+                            <h3>Тихий Дон</h3>
+                            <p class="author">Михаил Шолохов</p>
+                            <div class="book-footer">
+                                <p class="price">27 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/doctor.jpg" alt="Доктор Живаго - Борис Пастернак">
+                            </a>
+                            <h3>Доктор Живаго</h3>
+                            <p class="author">Борис Пастернак</p>
+                            <div class="book-footer">
+                                <p class="price">23 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-badge discount">-15%</div>
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/serdce.jpg" alt="Собачье сердце - Михаил Булгаков">
+                            </a>
+                            <h3>Собачье сердце</h3>
+                            <p class="author">Михаил Булгаков</p>
+                            <div class="book-footer">
+                                <p class="price"><span class="old-price">19 руб.</span> 16 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        
+                        <div class="book-card">
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/puti.jpg" alt="На обратном пути - Эрих Мария Ремарк">
+                            </a>
+                            <h3>На обратном пути</h3>
+                            <p class="author">Эрих Мария Ремарк</p>
+                            <div class="book-footer">
+                                <p class="price">20 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-badge">Философия</div>
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/postoronniy.jpg" alt="Посторонний - Альбер Камю">
+                            </a>
+                            <h3>Посторонний</h3>
+                            <p class="author">Альбер Камю</p>
+                            <div class="book-footer">
+                                <p class="price">19 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+                                                
+                        <div class="book-card">
+                            <div class="book-badge">Американская классика</div>
+                            <a href="korzina.html" class="book-link">
+                                <img src="../media/bookimages/getsbi.jpg" alt="Великий Гэтсби - Фрэнсис Скотт Фицджеральд">
+                            </a>
+                            <h3>Великий Гэтсби</h3>
+                            <p class="author">Фрэнсис Скотт Фицджеральд</p>
+                            <div class="book-footer">
+                                <p class="price">24 руб.</p>
+                                <a href="korzina.html" class="btn buy-btn">В корзину</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+
+                    
+                    <div class="pagination">
+                        <a href="catalog.html?page=1#catalog-content" class="pagination-btn active">1</a>
+                        <a href="catalog.html?page=2#catalog-content" class="pagination-btn">2</a>
+                        <a href="catalog.html?page=3#catalog-content" class="pagination-btn">3</a>
+                        <a href="catalog.html?page=4#catalog-content" class="pagination-btn">4</a>
+                        <span class="pagination-dots">...</span>
+                        <a href="catalog.html?page=10#catalog-content" class="pagination-btn">10</a>
+                        <a href="catalog.html?page=2#catalog-content" class="pagination-btn next">Следующая →</a>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Книжный мир. Все права защищены.</p>
+            <a href="../index.html#home" class="back-to-top">🡑 Вернуться на главную 🡑</a>
+        </div>
+    </footer>
+
+</body>
+</html>
