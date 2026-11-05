@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Книжный мир — Онлайн-магазин книг</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Century Gothic", sans-serif;
+        }
+
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px; 
+        }
+
+        body {
+            background: #f4f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 26px;
+            background: #4fa8e7;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #368fcf;
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        
+        .header {
+            background: #4fa8e7;
+            padding: 20px 0;
+            opacity: 0.95;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .logo-text h1 {
+            color: white;
+            font-size: 26px;
+        }
+
+        .logo-text p {
+            color: #e9f7ff;
+            font-size: 16px;
+        }
+
+        .nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav ul li {
+            margin-left: 20px;
+        }
+
+        .nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 6px 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav ul li a:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        #menu-toggle:checked ~ .nav {
+            transform: translateX(0);
+        }
+
+        #menu-toggle:checked ~ .menu-toggle span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        #menu-toggle:checked ~ .menu-toggle span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menu-toggle:checked ~ .menu-toggle span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        
+        .hero-banner {
+            position: relative;
+            height: auto;
+            min-height: 85vh;
+            max-height: none;
+            background: linear-gradient(135deg, #78cbf1 0%, #85c7e5 30%, #87ceeb 70%, #b3e0ff 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 90px;
+            padding: 40px 0 150px;
+        }
+
+        
+        .book-stack {
+            position: absolute;
+            right: 9%;
+            bottom: 8%; 
+            display: flex;
+            align-items: flex-end;
+            height: 55%;
+            animation: slideInRight 1.5s ease-out;
+            z-index: 2;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .book-item {
+            width: 70px;
+            height: 280px;
+            margin-right: -18px;
+            border-radius: 8px 8px 4px 4px;
+            transform: rotate(5deg);
+            box-shadow: -5px 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            position: relative;
+            animation: bookAppear 0.5s ease-out both;
+        }
+
+        .book-item:nth-child(1) { 
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            height: 250px;
+            animation-delay: 0.5s;
+        }
+        .book-item:nth-child(2) { 
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            height: 300px;
+            animation-delay: 0.7s;
+        }
+        .book-item:nth-child(3) { 
+            background: linear-gradient(45deg, #ffd166, #ffb347);
+            height: 230px;
+            animation-delay: 0.9s;
+        }
+        .book-item:nth-child(4) { 
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            height: 270px;
+            animation-delay: 1.1s;
+        }
+
+        @keyframes bookAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px) rotate(5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(5deg);
+            }
+        }
+
+        .book-item:hover {
+            transform: rotate(5deg) translateY(-15px);
+            z-index: 2;
+        }
+
+        .floating-books {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .book {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .book:nth-child(1) { top: 19%; left: 8%; animation-delay: 0s; }
+        .book:nth-child(2) { top: 55%; left: 70%; animation-delay: 1.5s; }
+        .book:nth-child(3) { top: 70%; left: 12%; animation-delay: 3s; }
+        .book:nth-child(4) { top: 15%; left: 85%; animation-delay: 4.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(5deg); }
+        }
+
+        
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+            max-width: 850px;
+            padding: 0 20px;
+            animation: fadeInUp 1.2s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            opacity: 0.95;
+            font-weight: 300;
+            line-height: 1.5;
+            animation: fadeIn 1.5s ease-out 0.5s both;
+            margin: 0;
+            max-width: 600px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.95; }
+        }
+
+       
+        .hero-banner .btn {
+            background: rgba(255,255,255,0.25);
+            border: 2px solid white;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            padding: clamp(12px, 2vw, 14px) clamp(25px, 4vw, 35px);
+            backdrop-filter: blur(10px);
+            font-weight: 600;
+            margin-top: 1rem;
+            min-height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .hero-banner .btn:hover {
+            background: white;
+            color: #4fa8e7;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+   
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: clamp(20px, 4vw, 50px);
+            animation: fadeIn 1s ease-out 1s both;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 80px;
+            flex-shrink: 0;
+        }
+
+        .stat-number {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 700;
+            color: white;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: clamp(0.8rem, 1.5vw, 1rem);
+            opacity: 0.9;
+            color: white;
+            line-height: 1.2;
+        }
+
+ 
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: clamp(10px, 2vw, 15px);
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 1.5s both;
+            max-width: 100%;
+            padding: 0 10px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: clamp(8px, 2vw, 10px) clamp(12px, 2vw, 16px);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .feature i {
+            color: white;
+            font-size: clamp(0.8rem, 1.8vw, 1rem);
+        }
+
+        .feature span {
+            color: white;
+            font-weight: 500;
+        }
+
+        .waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: clamp(100px, 18vh, 130px); 
+            overflow: hidden;
+            z-index: 3; 
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,96L80,85.3C160,75,320,53,480,58.7C640,64,800,96,960,101.3C1120,107,1280,85,1360,74.7L1440,64L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z" fill="%23f4f7fa"/></svg>');
+            background-size: 1200px 120px;
+            animation: wave 20s linear infinite;
+            opacity: 0.9;
+        }
+
+        .wave:nth-child(2) {
+            animation: wave 16s linear infinite reverse;
+            opacity: 0.6;
+            bottom: 5px;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-25%); }
+            100% { transform: translateX(-50%); }
+        }
+
+       
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(rgba(79, 168, 231, 0.75), rgba(102, 181, 246, 0.15)), url('media/banners/bannermp1.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .hero-content-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-content-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(20px, 4vw, 35px) clamp(25px, 5vw, 45px);
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: min(700px, 90vw);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.8);
+            margin: 0 20px;
+        }
+
+        .hero-content-box h2 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: #4fa8e7;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .hero-content-box p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .hero-content-box .btn {
+            background: #4fa8e7;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            box-shadow: 0 4px 15px rgba(79, 168, 231, 0.3);
+            padding: clamp(10px, 2vw, 12px) clamp(20px, 3vw, 26px);
+        }
+
+        .hero-content-box .btn:hover {
+            background: #368fcf;
+            box-shadow: 0 6px 20px rgba(79, 168, 231, 0.4);
+        }
+
+        
+        .advantages {
+            padding: 50px 0;
+        }
+
+        .adv-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .adv-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .adv-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .adv-card h3 {
+            color: #4fa8e7;
+            margin-bottom: 10px;
+        }
+
+        
+        .catalog {
+            padding: 10px 0;
+            background: #f8fafc;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .book-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .book-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        
+        .book-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+            background: #f8f9fa;
+        }
+
+        .book-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .book-card h3 {
+            margin: 10px 0 5px;
+            color: #2c3e50;
+            font-size: 16px;
+            line-height: 1.3;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .book-card .author {
+            color: #666;
+            font-style: normal;
+            margin-bottom: 10px;
+            font-size: 14px;
+            min-height: 20px;
+        }
+
+        .book-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+        }
+
+        .book-card .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4fa8e7;
+        }
+
+.buy-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #28a745, #20c997); 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(40, 167, 69, 0.3);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.buy-btn:hover {
+    background: linear-gradient(135deg, #218838, #1ea085); 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+    color: white;
+    text-decoration: none;
+}
+        
+        .catalog-cta {
+            padding: 20px 0 40px;
+            text-align: center;
+        }
+
+        .catalog-expand-simple {
+            display: inline-block;
+        }
+
+        .expand-catalog-simple {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #4fa8e7;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .expand-catalog-simple:hover {
+            background: #368fcf;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .expand-icon {
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .expand-catalog-simple:hover .expand-icon {
+            transform: translateY(2px);
+        }
+
+        
+        .reviews {
+            margin: 50px 0;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .review {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .review:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            background: #87ceeb;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .review-name {
+            font-weight: bold;
+        }
+
+        .review-date {
+            margin-left: auto;
+            color: #777;
+            font-size: 12px;
+        }
+
+        .review-stars {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+
+        .review-form {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f7f7f7;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        
+        .contacts {
+            margin: 50px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .contact-info, .contact-form, .map {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .contact-item {
+            margin-bottom: 15px;
+        }
+
+        .contact-item h4 {
+            color: #4fa8e7;
+            margin-bottom: 5px;
+        }
+
+        .contact-item a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: #4fa8e7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a img.social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .social-links a img.social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            color: #87ceeb;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .back-to-top:hover {
+            color: white;
+        }
+
+        
+        
+        
+
+        
+        @media (max-width: 1024px) {
+            .container {
+                width: 95%;
+            }
+            
+            .hero-banner {
+                padding: 30px 0 130px;
+                min-height: 75vh;
+            }
+            
+            .book-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .book-stack {
+                right: 5%;
+                bottom: 20%;
+            }
+        }
+
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 0;
+            }
+            
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .logo {
+                flex: 1;
+            }
+            
+            .logo-text h1 {
+                font-size: 22px;
+            }
+            
+            .logo-text p {
+                font-size: 14px;
+            }
+            
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #4fa8e7;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+            
+            #menu-toggle:checked ~ .nav {
+                transform: translateX(0);
+            }
+            
+            .nav ul {
+                flex-direction: column;
+                padding: 20px;
+                gap: 0;
+            }
+            
+            .nav ul li {
+                margin: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            
+            .nav ul li:last-child {
+                border-bottom: none;
+            }
+            
+            .nav ul li a {
+                display: block;
+                padding: 15px 10px;
+                border-radius: 0;
+            }
+            
+            .hero-banner {
+                margin-top: 70px;
+                padding: 20px 0 110px;
+                min-height: 70vh;
+            }
+            
+            .hero-content {
+                gap: 1rem;
+                margin-bottom: 30px;
+            }
+            
+            .hero-stats {
+                gap: 15px;
+                margin: 0.5rem 0;
+            }
+            
+            .hero-features {
+                gap: 8px;
+                margin-top: 0.5rem;
+            }
+            
+            .book-stack {
+                display: none; 
+            }
+            
+            
+            .advantages {
+                text-align: center;
+            }
+            
+            .adv-grid {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .adv-card {
+                width: 100%;
+                max-width: 400px;
+                text-align: center;
+            }
+            
+            .book-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+            }
+            
+            .book-card {
+                padding: 15px;
+            }
+            
+            .book-card img {
+                height: 160px;
+            }
+            
+            .book-card h3 {
+                font-size: 15px;
+                min-height: 36px;
+            }
+            
+            .book-footer {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .reviews {
+                padding: 25px;
+            }
+            
+            .review-header {
+                flex-wrap: wrap;
+            }
+            
+            .review-date {
+                margin-left: 0;
+                width: 100%;
+                margin-top: 5px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+        }
+
+        
+        @media (max-width: 480px) {
+            .hero-banner {
+                padding: 20px 0 90px;
+                min-height: 65vh;
+                margin-top: 60px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .hero-banner .btn {
+                min-height: 45px;
+                padding: 10px 20px;
+            }
+            
+            
+            .adv-card {
+                max-width: 100%;
+                padding: 15px;
+            }
+            
+            .book-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .book-card {
+                padding: 12px;
+            }
+            
+            .book-card img {
+                height: 140px;
+            }
+            
+            .book-card h3 {
+                font-size: 14px;
+                min-height: 32px;
+            }
+            
+            .book-card .author {
+                font-size: 13px;
+            }
+            
+            .book-card .price {
+                font-size: 16px;
+            }
+            
+            .buy-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+            
+            .contact-info, .contact-form, .map {
+                padding: 20px;
+            }
+            
+            .social-links a img.social-icon {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .expand-catalog-simple {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .reviews {
+                padding: 20px 15px;
+            }
+            
+            .review-form {
+                padding: 15px;
+            }
+            
+            
+            .hero-stats {
+                gap: 10px;
+            }
+            
+            .stat-item {
+                min-width: 70px;
+            }
+            
+            .hero-features {
+                gap: 5px;
+            }
+            
+            .feature {
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+        }
+
+      
+        @media (max-width: 360px) {
+            .book-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-text h1 {
+                font-size: 20px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .hero-banner {
+                padding: 15px 0 80px;
+                min-height: 60vh;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .hero-features {
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+            }
+            
+            .feature {
+                width: 100%;
+                max-width: 200px;
+                justify-content: center;
+            }
+            
+          
+            .hero-banner .btn {
+                min-height: 44px;
+                font-size: 14px;
+                padding: 10px 18px;
+            }
+        }
+
+        
+        @media (min-height: 800px) and (max-width: 768px) {
+            .hero-banner {
+                min-height: 60vh;
+            }
+        }
+
+   
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-banner {
+                min-height: 100vh;
+                padding: 20px 0 100px;
+            }
+            
+            .hero-content {
+                gap: 0.8rem;
+                margin-bottom: 20px;
+            }
+            
+            .hero-stats {
+                margin: 0.3rem 0;
+            }
+            
+            .hero-features {
+                margin-top: 0.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="media/icons/book_icon_3.png" alt="Иконка книги" class="logo-icon">
+                <div class="logo-text">
+                    <h1>Книжный Мир</h1>
+                    <p>Онлайн-магазин книг</p>
+                </div>
+            </div>
+
+            
+            <input type="checkbox" id="menu-toggle" style="display: none;">
+            <label class="menu-toggle" for="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#reviews">Отзывы</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    
+    <section id="home" class="hero-banner">
+        
+        <div class="floating-books">
+            <div class="book">📚</div>
+            <div class="book">📖</div>
+            <div class="book">📕</div>
+            <div class="book">📗</div>
+        </div>
+        
+        
+        <div class="book-stack">
+            <div class="book-item"></div>
+            <div class="book-item"></div>
+            <div class="book-item"></div>
+            <div class="book-item"></div>
+        </div>
+        
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Книжный Мир</h1>
+            <p class="hero-subtitle">Ваш проводник в мир литературы - от классики до современных бестселлеров</p>
+            <a href="#catalog" class="btn">
+                <i class="fas fa-book-open"></i>&nbsp;&nbsp;Перейти в каталог
+            </a>
+            
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">20K+</span>
+                    <div class="stat-label">Книг в каталоге</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <div class="stat-label">Лет на рынке</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <div class="stat-label">Довольных клиентов</div>
+                </div>
+            </div>
+            
+            
+            <div class="hero-features">
+                <div class="feature">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Быстрая доставка</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-tag"></i>
+                    <span>Лучшие цены</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-award"></i>
+                    <span>Гарантия качества</span>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="waves">
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+    </section>
+
+    
+    <section class="hero">
+        <div class="hero-content-wrapper">
+            <div class="hero-content-box">
+                <h2>Популярные новинки и бестселлеры</h2>
+                <p>Специально подобранная коллекция книг, которые сейчас читают чаще всего</p>
+                <a href="#catalog" class="btn">Смотреть подборку</a>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="advantages" class="advantages">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нас 🩵</h2>
+
+            <div class="adv-grid">
+                <div class="adv-card">
+                    <h3>Широкий ассортимент</h3>
+                    <p>Множество книг разных жанров: от классики до новинок, от художественной литературы до научных изданий</p>
+                </div>
+
+                <div class="adv-card">
+                    <h3>Быстрая доставка</h3>
+                    <p>Доставим вашу покупку за 1–3 дня по всей стране. Бесплатная доставка при заказе от 50 руб.</p>
+                </div>
+
+                <div class="adv-card">
+                    <h3>Доступные цены</h3>
+                    <p>Работаем напрямую с издательствами, что позволяет предлагать лучшие цены без посредников</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="catalog" class="catalog">
+        <div class="container">
+            <h2 class="section-title">Популярные книги</h2>
+
+            <div class="book-grid">
+
+                <div class="book-card">
+                    <a href="pages/bookview1.html" class="book-link">
+                        <img src="media/bookimages/master1.jpg" alt="Мастер и Маргарита - Михаил Булгаков">
+                    </a>
+                    <h3>Мастер и Маргарита</h3>
+                    <p class="author">Михаил Булгаков</p>
+                    <div class="book-footer">
+                        <p class="price">16 руб.</p>
+                        <a href="pages/bookview1.html" class="btn buy-btn">Купить</a>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <a href="pages/bookview2.html" class="book-link">
+                        <img src="media/bookimages/19842.jpg" alt="1984 - Джордж Оруэлл">
+                    </a>
+                    <h3>1984</h3>
+                    <p class="author">Джордж Оруэлл</p>
+                    <div class="book-footer">
+                        <p class="price">28 руб.</p>
+                        <a href="pages/bookview2.html" class="btn buy-btn">Купить</a>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <a href="pages/bookview3.html" class="book-link">
+                        <img src="media/bookimages/nakazanie3.jpg" alt="Преступление и наказание - Фёдор Достоевский">
+                    </a>
+                    <h3>Преступление и наказание</h3>
+                    <p class="author">Фёдор Достоевский</p>
+                    <div class="book-footer">
+                        <p class="price">17 руб.</p>
+                        <a href="pages/bookview3.html" class="btn buy-btn">Купить</a>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <a href="pages/bookview4.html" class="book-link">
+                        <img src="media/bookimages/princ4.jpg" alt="Маленький принц - Антуан де Сент-Экзюпери">
+                    </a>
+                    <h3>Маленький принц</h3>
+                    <p class="author">Антуан де Сент-Экзюпери</p>
+                    <div class="book-footer">
+                        <p class="price">15 руб.</p>
+                        <a href="pages/bookview4.html" class="btn buy-btn">Купить</a>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <a href="pages/bookview5.html" class="book-link">
+                        <img src="media/bookimages/gordost5.jpg" alt="Гордость и предубеждение - Джейн Остин">
+                    </a>
+                    <h3>Гордость и предубеждение</h3>
+                    <p class="author">Джейн Остин</p>
+                    <div class="book-footer">
+                        <p class="price">29 руб.</p>
+                        <a href="pages/bookview5.html" class="btn buy-btn">Купить</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="catalog-cta">
+        <div class="catalog-expand-simple">
+            <a href="pages/catalog.html" class="expand-catalog-simple">
+                <span class="expand-icon">↓</span>
+                <span class="expand-text">Показать все книги</span>
+            </a>
+        </div>
+    </section>
+
+    
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <h2 class="section-title">Отзывы наших клиентов</h2>
+
+            <div class="review">
+                <div class="review-header">
+                    <div class="review-avatar">АК</div>
+                    <div class="review-name">Анна К.</div>
+                    <div class="review-date">15.07.2025</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p>Отличный магазин! Быстрая доставка, книги в идеальном состоянии. Буду заказывать еще! Особенно понравилось, что можно найти редкие издания, которых нет в других магазинах.</p>
+            </div>
+
+            <div class="review">
+                <div class="review-header">
+                    <div class="review-avatar">ИП</div>
+                    <div class="review-name">Игорь П.</div>
+                    <div class="review-date">08.10.2025</div>
+                </div>
+                <div class="review-stars">★★★★☆</div>
+                <p>Хороший выбор книг, приятные цены. Доставка заняла немного больше времени, чем ожидал, но в целом всё отлично. Отдельное спасибо за аккуратную упаковку - книги пришли в идеальном состоянии.</p>
+            </div>
+
+            <div class="review">
+                <div class="review-header">
+                    <div class="review-avatar">МС</div>
+                    <div class="review-name">Мария С.</div>
+                    <div class="review-date">02.12.2024</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p>Заказывала книгу в подарок — пришла в красивой упаковке. Рекомендую! Очень удобный сайт, легко найти нужную книгу, а доставка быстрая и надежная.</p>
+            </div>
+
+            <div class="review-form">
+                <h3>Оставить отзыв</h3>
+
+                <form>
+                    <div class="form-group">
+                        <label for="name">Ваше имя:</label>
+                        <input type="text" id="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rating">Оценка:</label>
+                        <select id="rating">
+                            <option>★★★★★</option>
+                            <option>★★★★☆</option>
+                            <option>★★★☆☆</option>
+                            <option>★★☆☆☆</option>
+                            <option>★☆☆☆☆</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-text">Ваш отзыв:</label>
+                        <textarea id="review-text" rows="4" required></textarea>
+                    </div>
+
+                    <button type="reset" class="btn">Отправить отзыв</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    
+    <section id="contacts" class="contacts">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+
+            <div class="contact-grid">
+
+                <div class="contact-info">
+                    <h3>Наши контакты</h3>
+
+                    <div class="contact-item">
+                        <h4>Адрес:</h4>
+                        <p>г. Минск, ул. Руссиянова, д. 4</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h4>Телефон:</h4>
+                        <p><a href="tel:+375 29 111 21 01">+375 (29) 111-21-01</a></p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h4>Email:</h4>
+                        <p><a href="mailto:info@knizhniy-mir.ru">info@knizhniy-mir.ru</a></p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h4>Режим работы:</h4>
+                        <p>Пн-Пт: 9:00–21:00</p>
+                        <p>Сб-Вс: 10:00–20:00</p>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://viber.com" target="_blank">
+                            <img src="media/icons/viber.png" alt="Viber" class="social-icon">
+                        </a>
+                        <a href="https://vk.com" target="_blank">
+                            <img src="media/icons/vk.png" alt="VK" class="social-icon">
+                        </a>
+                        <a href="https://t.me" target="_blank">
+                            <img src="media/icons/telegram.png" alt="Telegram" class="social-icon">
+                        </a>
+                        <a href="https://instagram.com" target="_blank">
+                            <img src="media/icons/inst.png" alt="Instagram" class="social-icon">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Написать нам</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="contact-name">Ваше имя:</label>
+                            <input type="text" id="contact-name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-email">Ваш email:</label>
+                            <input type="email" id="contact-email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Сообщение:</label>
+                            <textarea id="message" rows="4" required></textarea>
+                        </div>
+
+                        <button type="reset" class="btn">Отправить сообщение</button>
+                    </form>
+                </div>
+
+                <div class="map">
+                    <h3>Мы на карте</h3>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1810.8468484391437!2d27.68411721010236!3d53.94279754567189!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbceb55e09766f%3A0xcaaf63e627d3670f!2sOZ!5e0!3m2!1sru!2sby!4v1763295332744!5m2!1sru!2sby" 
+                        width="100%" 
+                        height="250" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Карта с расположением магазина Книжный Мир">
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Книжный мир. Все права защищены.</p>
+            <a href="#home" class="back-to-top">🡑 Вернуться на главную 🡑</a>
+        </div>
+    </footer>
+
+</body>
+</html>
